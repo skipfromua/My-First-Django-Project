@@ -1,0 +1,68 @@
+{% load static %}
+<html>
+	<head>
+		<title>{% block title %}{% endblock %}</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+
+	</head>
+	<body>
+
+		<!-- Nav -->
+			<nav id="nav">
+				<ul class="containter">
+					<li><a href="{% url 'main' %}">Main</a></li>
+					<li><a href="{% url 'news' 1 %}">News</a></li>
+					<li>{% block auth %}{% endblock %}</li>
+					<li>{% block registration %}{% endblock %}</li>
+				</ul>
+
+			</nav>
+
+		<!-- Home -->
+			<div class="wrapper style1 first">
+				<article class="container" id="top">
+					<div class="row">
+						  {% block content %}
+							{% block comments %}
+							{% endblock %}
+						  {% endblock %}
+					</div>
+				</article>
+			</div>
+
+		<!-- Contact -->
+			<div class="wrapper style4">
+				<article id="contact" class="container 75%">
+					<header>
+						<h2>You can leave a message for me.</h2>
+						<p>It would save to special database table.</p>
+					</header>
+					<div>
+						<div class="row">
+							<div class="12u">
+								{% block message %}
+								{% endblock %}
+							</div>
+						</div>
+						<div class="row">
+							<div class="12u">
+								<hr />
+								<h3>Find me on ...</h3>
+								<ul class="social">
+									<li><a href="https://github.com/skipfromua" class="icon fa-github"><span class="label">Github</span></a></li>
+								</ul>
+								<hr />
+							</div>
+						</div>
+					</div>
+					<footer>
+						<ul id="copyright">
+							<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</footer>
+				</article>
+			</div>
+	</body>
+</html>

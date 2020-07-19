@@ -1,0 +1,64 @@
+{% extends 'News/Base.html' %}
+{% load static %}
+
+{% block tile %}
+    Hello from my site
+{% endblock %}
+
+{% block auth %}
+    {% if username %}
+        <a href="{% url 'logout' %}">Logout( {{ username }} )</a>
+    {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'registration' %}">Registration</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="4u 12u(mobile)">
+        <span class="image fit"><img src="{% static 'images/pic00.jpg' %}" alt="" /></span>
+    </div>
+
+    <div class="8u 12u(mobile)">
+        <header>
+            <h1>Hi. my name is <strong>Aleksandr</strong>.</h1>
+        </header>
+        <p>And this is my first training <strong>DJango</strong> project. Here you can find simple interaction with database and authorization system.</p>
+        <a href="{% url 'news' %}" class="button big scrolly">Click on me to see news</a>
+
+    </div>
+{% endblock %}
+
+{% block message %}
+    <form method="post" action="#">
+        {% csrf_token %}
+        <div>
+            <div class="row">
+                <div class="6u 12u(mobile)">
+                    {{ form.name }}
+                </div>
+                <div class="6u 12u(mobile)">
+                    {{ form.email }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="12u">
+                    {{ form.subject }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="12u">
+                    {{ form.message }}
+                </div>
+            </div>
+            <div class="row 200%">
+                <div class="12u">
+                    <ul class="actions">
+                        <li><input type="submit" value="Send Message" /></li>
+                        <li><input type="reset" value="Clear Form" class="alt" /></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

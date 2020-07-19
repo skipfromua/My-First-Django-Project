@@ -1,0 +1,84 @@
+{% extends 'News/Base.html' %}
+
+
+{% block tile %}
+    {{ post.title }}
+{% endblock %}
+
+{% block auth %}
+    {% if username %}
+        <a href="{% url 'logout' %}">Logout( {{ username }} )</a>
+    {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'registration' %}">Registration</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <H2> {{ post.title }} </H2>
+        <p> {{ post.body }} </p>
+        <p> {{ post.pub_date }} </p>
+
+    </div>
+
+        {% block comments %}
+            {% if commentary %}
+                {% for comment in commentary %}
+                    <h3> {{ comment.user.username }} </h3>
+                    <p> {{ comment.commentary_text }} </p>
+                    <p> {{ comment.pub_date }} </p>
+                {% endfor %}
+            {% else %}
+                <p>No comments</p>
+            {% endif %}
+            {% if username %}
+                <form method="post"><br><br>
+                    {% csrf_token %}
+                    <div class="row"><br>
+                        <input type="text" placeholder="Leave the commentary" name="commentary_text" id="commentary_text">
+                    </div>
+                    <div class="row"><br>
+                        <input type="submit" value="Send">
+                    </div>
+                </form>
+            {% endif %}
+        {% endblock %}
+
+{% endblock %}
+
+
+
+{% block message %}
+   <form method="post" action="#">
+        {% csrf_token %}
+        <div>
+            <div class="row">
+                <div class="6u 12u(mobile)">
+                    {{ form.name }}
+                </div>
+                <div class="6u 12u(mobile)">
+                    {{ form.email }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="12u">
+                    {{ form.subject }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="12u">
+                    {{ form.message }}
+                </div>
+            </div>
+            <div class="row 200%">
+                <div class="12u">
+                    <ul class="actions">
+                        <li><input type="submit" value="Send Message" /></li>
+                        <li><input type="reset" value="Clear Form" class="alt" /></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

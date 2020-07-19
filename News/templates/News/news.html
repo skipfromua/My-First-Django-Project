@@ -1,0 +1,80 @@
+{% extends 'News/Base.html' %}
+
+
+{% block tile %}
+    News
+{% endblock %}
+
+{% block auth %}
+    {% if username %}
+        <a href="{% url 'logout' %}">Logout( {{ username }} )</a>
+    {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'registration' %}">Registration</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% for tag in news %}
+        <div class="row">
+            <H2> <a href="{% url 'post_detail' pk=tag.id %}">{{ tag.title }}</a> </H2>
+            <p> {{ tag.body }} </p>
+            <p> {{ tag.pub_date }} </p>
+        </div>
+        <div class="row">
+            <button class="button" style="margin-left: 800%; margin-bottom: 50%; margin-top: -50%;"
+                    onclick="window.location.href='{% url 'post_detail' pk=tag.id %}'">Read </button>
+        </div>
+    {% endfor %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if news.has_previous %}
+                <a href="1">&laquo; first</a>
+                <a href="{{ news.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ news.number }} of {{ news.paginator.num_pages }}.
+            </span>
+
+            {% if news.has_next %}
+                <a href="{{ news.next_page_number }}">next</a>
+                <a href="{{ news.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}
+
+{% block message %}
+    <form method="post" action="#">
+        {% csrf_token %}
+        <div>
+            <div class="row">
+                <div class="6u 12u(mobile)">
+                    {{ form.name }}
+                </div>
+                <div class="6u 12u(mobile)">
+                    {{ form.email }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="12u">
+                    {{ form.subject }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="12u">
+                    {{ form.message }}
+                </div>
+            </div>
+            <div class="row 200%">
+                <div class="12u">
+                    <ul class="actions">
+                        <li><input type="submit" value="Send Message" /></li>
+                        <li><input type="reset" value="Clear Form" class="alt" /></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
