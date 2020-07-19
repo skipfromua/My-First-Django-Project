@@ -1,1 +1,1 @@
-web MyFirstProject.wsgi --log-file -
+web gunicorn MyFirstProject.wsgi
