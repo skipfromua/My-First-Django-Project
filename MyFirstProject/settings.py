@@ -29,7 +29,7 @@ SECRET_KEY = '!xy@+&(#z&ylgmr4nf*pptcs&06eqeb6i=q8=m66bui^zh4-6g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['immense-tor-64847.herokuapp.com']
 
 
 # Application definition
