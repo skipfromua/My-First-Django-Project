@@ -1,0 +1,1 @@
+web MyFirstProject.wsgi --log-file -
